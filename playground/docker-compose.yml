@@ -1,6 +1,0 @@
-services:
-  debian:
-    image: debian:12
-    command: bash
-    tty: true
-    stdin_open: true
