@@ -3,7 +3,7 @@ services:
     build: ./requirements/mariadb
     container_name: mariadb
     env_file:
-      - ../.env
+      - .env
     volumes:
       - mariadb_data:/var/lib/mysql
     networks:
@@ -13,7 +13,7 @@ services:
     build: ./requirements/wordpress
     container_name: wordpress
     env_file:
-      - ../.env
+      - .env
     depends_on:
       - mariadb
     volumes:
@@ -28,11 +28,11 @@ services:
         DOMAIN_NAME: ${DOMAIN_NAME}
     container_name: nginx
     env_file:
-      - ../.env
+      - .env
     ports:
       - "443:443"
     depends_on:
-      -wordpress
+      - wordpress
     volumes:
       - wordpress_data:/var/www/html
     networks:

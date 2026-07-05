@@ -5,14 +5,19 @@ set -e
 WP_PATH="/var/www/html"
 chown -R www-data:www-data "$WP_PATH"
 
+echo "Waiting for MariaDB..."
+
 until mysqladmin \
     --host="$WORDPRESS_DB_HOST" \
     --user="$MYSQL_USER" \
     --password="$MYSQL_PASSWORD" \
     ping --silent
 do
+    echo "MariaDB is not ready yet..."
     sleep 1
 done
+
+echo "MariaDB is ready!"
 
 
 if [ ! -f "$WP_PATH/wp-load.php" ]; then

@@ -5,6 +5,9 @@ set -e
 DATADIR="/var/lib/mysql"
 SOCKET="/run/mysqld/mysqld.sock"
 
+mkdir -p /run/mysqld
+chown mysql:mysql /run/mysqld
+
 if [ ! -d "$DATADIR/mysql" ]; then
     echo "Initializing MariaDB..."
 

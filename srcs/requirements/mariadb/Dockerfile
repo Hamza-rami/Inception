@@ -2,7 +2,8 @@ FROM debian:bullseye
 
 RUN apt update && \
     apt install -y mariadb-server && \
-    apt clean
+    apt clean && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY script.sh /usr/local/bin/script.sh
 
