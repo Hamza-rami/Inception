@@ -56,10 +56,11 @@ if ! su -s /bin/bash www-data -c \
         wp user create \
             '$WP_USER' \
             '$WP_USER_EMAIL' \
-            --user_pass='$WP_USER_PASSWORD'
+            --user_pass='$WP_USER_PASSWORD' \
+            --path="$WP_PATH"
     "
 fi
 
 echo "Starting PHP-FPM..."
-
-exec php-fpm -F
+mkdir -p /run/php
+exec php-fpm7.4 -F
