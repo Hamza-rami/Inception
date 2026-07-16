@@ -1,0 +1,33 @@
+                     Internet
+                         │
+                         ▼
+                  Port 443 (HTTPS)
+                         │
+                         ▼
+                  +---------------+
+                  |     NGINX     |
+                  +---------------+
+                         │
+                  FastCGI (9000)
+                         │
+                         ▼
+                 +----------------+
+                 | WordPress/PHP  |
+                 +----------------+
+                         │
+                     TCP 3306
+                         │
+                         ▼
+                 +----------------+
+                 |    MariaDB     |
+                 +----------------+
+
+Named Volumes
+
+wordpress_data
+
+mariadb_data
+
+Docker Network
+
+inception_network
