@@ -1,26 +1,17 @@
 FROM debian:bullseye
 
-ARG DOMAIN_NAME
-
-RUN apt update && apt install -y \
-    nginx \
-    openssl \
-    && apt clean \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN mkdir -p /etc/nginx/ssl
+RUN apt update && \
+    apt instal -y nginx apenssl && \
 
 RUN openssl req \
     -x509 \
-    -newkey rsa:4096 \
     -nodes \
     -days 365 \
-    -keyout /etc/nginx/ssl/nginx.key \
-    -out /etc/nginx/ssl/nginx.crt \
-    -subj "/C=MA/ST=Beni Mellal/L=Kouribga/O=42/OU=1337/CN=${DOMAIN_NAME}"
+    -newkey rsa:2048 \
+    -keyout /etc/ssl/private/nginx.key \
+    -out /etc/ssl/certs/nginx.crt \
+    -subj "/C=MA/ST=beni Mellal/L=khouribga/O=42/OU=1337/CN=hrami.42.fr"
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-EXPOSE 443
 
 CMD ["nginx", "-g", "daemon off;"]

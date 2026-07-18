@@ -1,19 +1,17 @@
 FROM debian:bullseye
 
-RUN apt update && apt install -y \
-    php-fpm \
-    php-mysql \
-    curl \
-    mariadb-client \
-    && apt clean \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt update && \
+    apt install -y \
+        php-fpm \
+        php-mysql \
+        curl
 
-RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-    && chmod +x wp-cli.phar \
-    && mv wp-cli.phar /usr/local/bin/wp
+RUN mkdir -p /run/php
 
-RUN sed -i 's|^listen = .*|listen = 9000|' \
-    /etc/php/7.4/fpm/pool.d/www.conf
+COPY www.conf /etc/php/7.4/fpm/pool.d/www.conf
+
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar &&\
+    chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
 
 COPY script.sh /usr/local/bin/script.sh
 
