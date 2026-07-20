@@ -12,6 +12,6 @@ clean:
 	$(COMPOSE) down -v
 
 fclean: clean
-	docker image rm mariadb wordpress nginx
+	$(COMPOSE) down --rmi all -v
 
 re: fclean up

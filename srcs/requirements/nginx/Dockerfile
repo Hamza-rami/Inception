@@ -1,7 +1,7 @@
 FROM debian:bullseye
 
 RUN apt update && \
-    apt instal -y nginx apenssl
+    apt install -y nginx openssl
 
 
 

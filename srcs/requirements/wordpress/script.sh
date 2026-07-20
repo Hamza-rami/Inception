@@ -4,7 +4,8 @@ set -e
 
 WP_PATH="/var/www/html"
 
-until mysqladmin ping -h mariadb --silent; do
+until mysqladmin -h mariadb -u"${MYSQL_USER}" -p"${MYSQL_PASSWORD}" \
+    ping --silent; do
     sleep 1
 done
 
@@ -39,4 +40,4 @@ if [ ! -f "$WP_PATH/wp-config.php" ]; then
 
 fi
 
-exec php-fpm -F
+exec php-fpm7.4 -F
