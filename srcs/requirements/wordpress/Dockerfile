@@ -17,6 +17,8 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 
 COPY script.sh /usr/local/bin/script.sh
 
+COPY conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
+
 RUN chmod +x /usr/local/bin/script.sh
 
 ENTRYPOINT ["/usr/local/bin/script.sh"]
