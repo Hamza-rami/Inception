@@ -21,19 +21,15 @@ if [ ! -d "$DATADIR/mysql" ]; then
         sleep 1
     done
 
-    echo "Creating database..."
     mysql --socket="$SOCKET" \
         -e "CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};"
     
-    echo "Creating user..."
     mysql --socket="$SOCKET" \
         -e "CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';"
     
-    echo "Granting privileges..."
     mysql --socket="$SOCKET" \
         -e "GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%';"
-    
-    echo "Flushing privileges..."
+        
     mysql --socket="$SOCKET" \
         -e "FLUSH PRIVILEGES;"
 
@@ -44,4 +40,5 @@ fi
 exec mariadbd \
     --user=mysql \
     --datadir="$DATADIR" \
-    --socket="$SOCKET"
+    --socket="$SOCKET" \
+    --bind-address=0.0.0.0
