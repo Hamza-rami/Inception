@@ -21,6 +21,17 @@ if [ ! -f "$WP_PATH/wp-config.php" ]; then
         --path="${WP_PATH}" \
         --allow-root
     
+    wp config set WP_REDIS_HOST "redis" \
+        --type=constant \
+        --path="$WP_PATH" \
+        --allow-root
+
+    wp config set WP_REDIS_PORT "6379" \
+        --type=constant \
+        --raw \
+        --path="$WP_PATH" \
+        --allow-root
+
     wp core install \
         --url="${DOMAIN_NAME}" \
         --title="${WP_TITLE}" \
@@ -37,7 +48,14 @@ if [ ! -f "$WP_PATH/wp-config.php" ]; then
         --role=author \
         --path="$WP_PATH" \
         --allow-root
+    wp plugin install redis-cache \
+        --activate \
+        --path="$WP_PATH" \
+        --allow-root
 
+    wp redis enable \
+        --path="$WP_PATH" \
+        --allow-root
 fi
 
 exec php-fpm7.4 -F
