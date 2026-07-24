@@ -49,6 +49,20 @@ services:
       - "30000-30009:30000-30009"
     networks:
       - inception
+  adminer:
+    container_name: adminer
+    build: ./requirements/bonus/adminer
+    ports:
+      - "8080:8080"
+    networks:
+      - inception
+  static:
+    container_name: static
+    build: ./requirements/bonus/static
+    ports:
+      - "8081:80"
+    networks:
+      - inception
     
 
 networks:
