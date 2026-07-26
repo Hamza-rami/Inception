@@ -1,5 +1,10 @@
-FROM nginx:alpine
+FROM debian:bullseye
 
-COPY index.html /usr/share/nginx/html/
+RUN apt update && \
+    apt install -y nginx
 
-COPY style.css /usr/share/nginx/html/
+COPY website/ /var/www/html/static
+
+COPY default.conf /etc/nginx/sites-available/default
+
+CMD ["nginx", "-g", "daemon off;"]
