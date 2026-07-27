@@ -59,19 +59,17 @@ services:
     build: ./requirements/bonus/static
     networks:
       - inception
-  portainer:
-    container_name: portainer
-    build: ./requirements/bonus/portainer
-
-    ports:
-      - "9000:9000"
-
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
+  netdata:
+    container_name: netdata
+    build: ./requirements/bonus/netdata
 
     networks:
       - inception
+    
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+
     
 
 networks:
@@ -79,4 +77,3 @@ networks:
 volumes:
   mariadb_data:
   wordpress_data:
-  portainer_data:
