@@ -56,6 +56,7 @@ if [ ! -f "$WP_PATH/wp-config.php" ]; then
     wp redis enable \
         --path="$WP_PATH" \
         --allow-root
+
     chown -R www-data:www-data "$WP_PATH"
     chmod -R 775 "$WP_PATH"
 fi

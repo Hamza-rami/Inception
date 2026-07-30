@@ -3,8 +3,6 @@ FROM debian:bullseye
 RUN apt update && \
     apt install -y nginx openssl
 
-
-
 RUN openssl req \
     -x509 \
     -nodes \
