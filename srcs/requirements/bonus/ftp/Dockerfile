@@ -3,8 +3,10 @@ FROM debian:bullseye
 RUN apt update && \
     apt install -y vsftpd
 
-COPY script.sh /script.sh
+COPY vsftpd.conf /etc/vsftpd.conf
 
-RUN chmod +x /script.sh
+COPY script.sh .
 
-ENTRYPOINT ["/script.sh"]
+RUN chmod +x script.sh
+
+ENTRYPOINT ["./script.sh"]

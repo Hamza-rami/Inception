@@ -41,7 +41,7 @@ services:
     container_name: ftp
     build: ./requirements/bonus/ftp
     env_file:
-      - .env
+      - ./.env
     volumes:
       - wordpress_data:/var/www/html
     ports:
@@ -69,7 +69,6 @@ services:
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
 
     
 
@@ -77,4 +76,15 @@ networks:
   inception:
 volumes:
   mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/hrami/data/mariadb
+
   wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/hrami/data/wordpress

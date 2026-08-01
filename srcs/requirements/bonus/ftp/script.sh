@@ -2,8 +2,6 @@
 
 set -e
 
-FTP_CONF="/etc/vsftpd.conf"
-
 useradd -M \
     -d /var/www/html \
     -s /bin/bash \
@@ -13,35 +11,8 @@ echo "${FTP_USER}:${FTP_PASSWORD}" | chpasswd
 
 usermod -aG www-data "$FTP_USER"
 
-
-sed -i 's/^anonymous_enable=.*/anonymous_enable=NO/' "$FTP_CONF"
-sed -i 's/^local_enable=.*/local_enable=YES/' "$FTP_CONF"
-
-sed -i 's/^#write_enable=.*/write_enable=YES/' "$FTP_CONF"
-
-sed -i 's/^listen=.*/listen=YES/' "$FTP_CONF"
-sed -i 's/^listen_ipv6=.*/listen_ipv6=NO/' "$FTP_CONF"
-
-grep -q "^chroot_local_user=" "$FTP_CONF" \
-    || echo "chroot_local_user=YES" >> "$FTP_CONF"
-
-grep -q "^allow_writeable_chroot=" "$FTP_CONF" \
-    || echo "allow_writeable_chroot=YES" >> "$FTP_CONF"
-
-grep -q "^pasv_enable=" "$FTP_CONF" \
-    || echo "pasv_enable=YES" >> "$FTP_CONF"
-
-grep -q "^pasv_min_port=" "$FTP_CONF" \
-    || echo "pasv_min_port=30000" >> "$FTP_CONF"
-
-grep -q "^pasv_max_port=" "$FTP_CONF" \
-    || echo "pasv_max_port=30009" >> "$FTP_CONF"
-
-grep -q "^pasv_address=" "$FTP_CONF" \
-    || echo "pasv_address=127.0.0.1" >> "$FTP_CONF"
-
 mkdir -p /var/run/vsftpd/empty
 chmod 755 /var/run/vsftpd
 chmod 555 /var/run/vsftpd/empty
 
-exec /usr/sbin/vsftpd "$FTP_CONF"
+exec /usr/sbin/vsftpd /etc/vsftpd.conf
