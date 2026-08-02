@@ -1,13 +1,12 @@
-LOGIN := $(shell whoami)
-DATA_PATH := /home/$(LOGIN)/data
+DATA_PATH := /home/hrami/data
 
 COMPOSE = docker compose -f srcs/docker-compose.yml
 
 all: up
 
 up:
-	@mkdir -p $(DATA_PATH)/mariadb
-	@mkdir -p $(DATA_PATH)/wordpress
+	@sudo mkdir -p $(DATA_PATH)/mariadb
+	@sudo mkdir -p $(DATA_PATH)/wordpress
 	$(COMPOSE) up --build -d
 
 down:

@@ -2,44 +2,53 @@ services:
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb
+    restart: on-failure
     env_file:
       - ./.env
     volumes:
       - mariadb_data:/var/lib/mysql
     networks:
       - inception
+
   wordpress:
     container_name: wordpress
     build: ./requirements/wordpress
+    restart: on-failure
     env_file:
       - ./.env
     volumes:
-        - wordpress_data:/var/www/html
+      - wordpress_data:/var/www/html
     networks:
-        - inception
+      - inception
     depends_on:
       - mariadb
+
   nginx:
     container_name: nginx
     build: ./requirements/nginx
+    restart: on-failure
     env_file:
-        - ./.env
+      - ./.env
     volumes:
-        - wordpress_data:/var/www/html
+      - wordpress_data:/var/www/html
     networks:
-        - inception
+      - inception
     ports:
-        - 443:443
+      - "443:443"
     depends_on:
       - wordpress
+
   redis:
     container_name: redis
     build: ./requirements/bonus/redis
+    restart: on-failure
     networks:
       - inception
+
   ftp:
     container_name: ftp
     build: ./requirements/bonus/ftp
+    restart: on-failure
     env_file:
       - ./.env
     volumes:
@@ -49,23 +58,27 @@ services:
       - "30000-30009:30000-30009"
     networks:
       - inception
+
   adminer:
     container_name: adminer
     build: ./requirements/bonus/adminer
+    restart: on-failure
     networks:
       - inception
+
   static:
     container_name: static
     build: ./requirements/bonus/static
+    restart: on-failure
     networks:
       - inception
+
   netdata:
     container_name: netdata
     build: ./requirements/bonus/netdata
-
+    restart: on-failure
     networks:
       - inception
-    
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
