@@ -5,7 +5,7 @@ RUN mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
 
 RUN rm -rf /var/lib/mysql/*
 
-COPY script.sh /usr/local/bin/script.sh
+COPY ./tools/script.sh /usr/local/bin/script.sh
 
 RUN chmod +x /usr/local/bin/script.sh
 

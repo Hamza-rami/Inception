@@ -3,9 +3,9 @@ FROM debian:bullseye
 RUN apt update && \
     apt install -y vsftpd
 
-COPY vsftpd.conf /etc/vsftpd.conf
+COPY ./conf/vsftpd.conf /etc/vsftpd.conf
 
-COPY script.sh .
+COPY ./tools/script.sh .
 
 RUN chmod +x script.sh
 

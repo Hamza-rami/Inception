@@ -5,6 +5,6 @@ RUN apt update && \
 
 COPY website/ /var/www/html/static
 
-COPY default.conf /etc/nginx/sites-available/default
+COPY ./conf/default.conf /etc/nginx/sites-available/default
 
 CMD ["nginx", "-g", "daemon off;"]
