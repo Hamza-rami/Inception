@@ -83,10 +83,10 @@ services:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
 
-    
-
 networks:
   inception:
+    driver: bridge
+
 volumes:
   mariadb_data:
     driver: local

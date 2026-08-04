@@ -61,4 +61,4 @@ if [ ! -f "$WP_PATH/wp-config.php" ]; then
     chmod -R 775 "$WP_PATH"
 fi
 
-exec php-fpm7.4 -F
+exec php-fpm8.2 -F

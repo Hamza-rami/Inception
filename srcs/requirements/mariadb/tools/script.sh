@@ -29,6 +29,9 @@ if [ ! -d "$DATADIR/mysql" ]; then
     
     mysql --socket="$SOCKET" \
         -e "GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%';"
+    
+    mysql --socket="$SOCKET" \
+        -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';"
         
     mysql --socket="$SOCKET" \
         -e "FLUSH PRIVILEGES;"
